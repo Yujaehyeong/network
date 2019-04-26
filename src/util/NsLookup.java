@@ -30,12 +30,7 @@ public class NsLookup {
 	}
 
 	public boolean isExit(String url) {
-		boolean result = true;
-		if (!url.equals("exit")) {
-			setHostAddress(url);
-			result = false;
-		}
-		return result;
+		return url.equals("exit") ? true: false;
 	}
 
 	public void printHostAddress() {
@@ -55,6 +50,7 @@ public class NsLookup {
 			String url = sc.next();
 			if (nslookup.isExit(url))
 				break;
+			nslookup.setHostAddress(url);
 			nslookup.printHostAddress();
 		}
 	}
