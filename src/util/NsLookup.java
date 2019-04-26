@@ -25,7 +25,7 @@ public class NsLookup {
 			}
 
 		} catch (UnknownHostException e) {
-			e.printStackTrace();
+			System.out.println("알 수 없는 호스트입니다.");
 		}
 	}
 
