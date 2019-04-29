@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class TCPServer {
 
@@ -38,6 +39,7 @@ public class TCPServer {
 
 			try {// Exception 처리 따로해줘야함
 					// 4. IOStream 받아오기
+					// 바로 소켓을 이용하지 않고 Stream으로 추상화시켜서 데이터 처리함
 				InputStream is = socket.getInputStream();
 				OutputStream os = socket.getOutputStream();
 
@@ -53,14 +55,17 @@ public class TCPServer {
 						System.out.println("[server] closed by client");
 						break;
 					}
-					
+
 					String data = new String(buffer, 0, readByteCount, "utf-8");
 					System.out.println("[server] received : " + data);
 
 					// 6. 데이터 쓰기
 					os.write(data.getBytes("utf-8"));
-
+					
 				}
+			} catch (SocketException e) {
+				System.out.println("[server] sudden closed by client");
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			} finally {
@@ -79,7 +84,7 @@ public class TCPServer {
 			try {
 				if (serverSocket != null && !serverSocket.isClosed()) {
 					serverSocket.close();
-					System.out.println("Server Closed");
+					System.out.println("[server] Server Closed");
 				}
 
 			} catch (IOException e) {

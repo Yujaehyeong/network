@@ -30,7 +30,7 @@ public class NsLookup {
 	}
 
 	public boolean isExit(String url) {
-		return url.equals("exit") ? true: false;
+		return "exit".equals(url) ? true: false;
 	}
 
 	public void printHostAddress() {
