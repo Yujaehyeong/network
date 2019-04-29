@@ -11,7 +11,5 @@ public class ThreadEx02 {
 		thread2.start();
 		thread3.start();
 		
-		
 	}
-	
 }
