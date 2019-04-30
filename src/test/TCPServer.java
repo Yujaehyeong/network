@@ -12,11 +12,14 @@ public class TCPServer {
 
 	public static void main(String[] args) {
 		ServerSocket serverSocket = null;
-
+			
 		try {
 			// 1. 서버소켓 생성
 			serverSocket = new ServerSocket();
-
+			
+			// 1-1. Time-Wait 시간에 소켓에 포트번호 할당을 가능하게 하기 위해서 
+			serverSocket.setReuseAddress(true);
+			
 			// 2. 바인딩(binding)
 			// : Socket에 SocketAddress(IPAddress + Port)를 바인딩 한다.
 //			InetAddress inetAddress = InetAddress.getLocalHost();
@@ -35,6 +38,7 @@ public class TCPServer {
 					(InetSocketAddress) socket.getRemoteSocketAddress();
 			String remoteHostAddress = inetRemoteSocketAddress.getAddress().getHostAddress();
 			int remotePort = inetRemoteSocketAddress.getPort();
+			
 			System.out.println("[server] connected by client[" + remoteHostAddress + ":" + remotePort + "]");
 
 			try {// Exception 처리 따로해줘야함
@@ -59,13 +63,17 @@ public class TCPServer {
 					String data = new String(buffer, 0, readByteCount, "utf-8");
 					System.out.println("[server] received : " + data);
 
-					// 6. 데이터 쓰기
-					os.write(data.getBytes("utf-8"));
+					//6. 데이터 쓰기
+					try {
+						Thread.sleep(2000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 					
+					os.write( data.getBytes("utf-8") );
 				}
 			} catch (SocketException e) {
 				System.out.println("[server] sudden closed by client");
-
 			} catch (IOException e) {
 				e.printStackTrace();
 			} finally {
@@ -84,7 +92,6 @@ public class TCPServer {
 			try {
 				if (serverSocket != null && !serverSocket.isClosed()) {
 					serverSocket.close();
-					System.out.println("[server] Server Closed");
 				}
 
 			} catch (IOException e) {

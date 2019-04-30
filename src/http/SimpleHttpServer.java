@@ -7,7 +7,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class SimpleHttpServer {
-	private static final int PORT = 8088;
+	private static final int PORT = 8888;
 
 	public static void main(String[] args) {
 
@@ -15,11 +15,13 @@ public class SimpleHttpServer {
 		try {
 			// 1. Create Server Socket
 			serverSocket = new ServerSocket();
-			   
+
 			// 2. Bind
 			serverSocket.bind(new InetSocketAddress("0.0.0.0", PORT));
 			consolLog("httpd starts at " + PORT);
-
+			
+			
+			
 			while (true) {
 				// 3. Wait for connecting ( accept )
 				Socket socket = serverSocket.accept();
@@ -43,6 +45,6 @@ public class SimpleHttpServer {
 	}
 
 	public static void consolLog(String message) {
-		System.out.println("[HttpServer#" + Thread.currentThread().getId()  + "] " + message);
+		System.out.println("[HttpServer#" + Thread.currentThread().getId() + "] " + message);
 	}
 }

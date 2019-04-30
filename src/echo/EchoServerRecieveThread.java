@@ -35,13 +35,14 @@ public class EchoServerRecieveThread extends Thread {
 
 			while (true) {
 				// 5. 데이터 읽기
-				String data = br.readLine();
+				System.out.println("입력대기");
+				String data = br.readLine(); // blocking
 				if (data == null) {
 					EchoServer.log("closed by client");
 					break;
 				}
 				EchoServer.log("received:" + data);
-
+				
 				// 6. 데이터 쓰기
 				pr.println(data);
 

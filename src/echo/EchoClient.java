@@ -9,6 +9,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.Date;
 import java.util.Scanner;
 
 public class EchoClient {
@@ -24,11 +25,13 @@ public class EchoClient {
 			
 			// 2. 소켓 생성
 			socket = new Socket();
-
+			
+			
 			// 3. 서버연결
 			socket.connect(new InetSocketAddress(SERVER_IP, SERVER_PORT));
 			log("connected");
-
+			
+			
 			// 4. IOStream todtjd(받아오기)
 			BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "utf-8"));
 			// true를 넣어줌으로써 Auto flush 해줌
@@ -43,7 +46,9 @@ public class EchoClient {
 				}
 
 				// 6. 데이터 쓰기
+				
 				pr.println(line);
+				System.out.println(new Date().toString());
 
 				// 7. 데이터 읽기
 				String data = br.readLine();
