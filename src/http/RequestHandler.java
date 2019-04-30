@@ -80,8 +80,7 @@ public class RequestHandler extends Thread {
 			// os.write( "HTTP/1.1 200 OK\r\n".getBytes( "UTF-8" ) );
 			// os.write( "Content-Type:text/html; charset=utf-8\r\n".getBytes( "UTF-8" ) );
 			// os.write( "\r\n".getBytes() ); //header 부분과 body 부분을 나눔
-			// os.write( "<h1>이 페이지가 잘 보이면 실습과제 SimpleHttpServer를 시작할 준비가 된
-			// 것입니다.</h1>".getBytes( "UTF-8" ) );
+			// os.write( "<h1>이 페이지가 잘 보이면 실습과제 SimpleHttpServer를 시작할 준비가 된것입니다.</h1>".getBytes( "UTF-8" ) );
 
 		} catch (Exception ex) {
 			consoleLog("error:" + ex);
@@ -112,7 +111,6 @@ public class RequestHandler extends Thread {
 		File file = new File(DOCUMENT_ROOT + url);
 		if (file.exists() == false) {
 			response404Error(os, protocol);
-
 			/*
 			 * 응답예시 HTTP/1.1 404 File Not Found\r\n -리눅스에서는 rn 윈도우에서는 n
 			 * Content-Type:text/html; charset=utf-8\r\n \r\n HTML 에러
@@ -131,7 +129,7 @@ public class RequestHandler extends Thread {
 	}
 
 	private void response404Error(OutputStream os, String protocol) throws IOException {
-		File file = new File(DOCUMENT_ROOT+"error/404.html");
+		File file = new File(DOCUMENT_ROOT+"/error/404.html");
 		byte[] body = Files.readAllBytes(file.toPath());
 		String contentType = Files.probeContentType(file.toPath());
 		// 응답
@@ -141,7 +139,7 @@ public class RequestHandler extends Thread {
 	
 	private void response400Error(OutputStream os, String protocol) throws IOException {
 
-		File file = new File(DOCUMENT_ROOT+"error/400.html");
+		File file = new File(DOCUMENT_ROOT+"/error/400.html");
 		byte[] body = Files.readAllBytes(file.toPath());
 		String contentType = Files.probeContentType(file.toPath());
 		// 응답
