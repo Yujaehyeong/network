@@ -7,7 +7,8 @@ import java.net.Socket;
 
 public class EchoServer {
 	private static final int PORT = 7000;
-
+	
+	
 	public static void main(String[] args) {
 		ServerSocket serverSocket = null;
 		try {
@@ -41,7 +42,9 @@ public class EchoServer {
 		}
 
 	}
-
+	
+	
+	
 	public static void log(String log) {
 		System.out.println("[server#" + Thread.currentThread().getId() + log + "]");
 	}

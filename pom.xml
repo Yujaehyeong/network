@@ -1,0 +1,64 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>network</groupId>
+	<artifactId>network</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<!-- project object model - 프로젝트를 description 하는 것. -->
+	<!-- 메이븐 빌드 오류가나면 m2/repository/ 파일들이 제대로 설치가 안됐을 수도 있다. -->
+
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<!-- 이 프로젝트는 여기에 의존성이 있다. depend 하다 -->
+	<dependencies>
+
+		<!-- a라는 애가 b한테 의존하는데 b라는 애는 c , c라는 애는 d 에게 의존하는데 이런걸 사람이 일일이 다해줄 수 없어서 
+			필요한 라이브러리를 모두 설치해줌 -->
+		<!-- 이게 라이브러리 description이다. -->
+		<!-- 설치하면 프로젝트의 Maven Dependencies 아래 설치된다. -->
+		<!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
+		<dependency>
+			<groupId>org.mariadb.jdbc</groupId>
+			<artifactId>mariadb-java-client</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<resources>
+			<resource>
+				<directory>${project.basedir}/src/main/resources</directory>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</resource>
+		</resources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-jar-plugin</artifactId> 
+				<version>2.3.1</version> <configuration> <finalName>network</finalName> <outputDirectory>working</outputDirectory> 
+				</configuration> </plugin> -->
+		</plugins>
+	</build>
+</project>

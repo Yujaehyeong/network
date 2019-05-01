@@ -1,7 +1,6 @@
 package http;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -12,26 +11,25 @@ public class SimpleHttpServer {
 	public static void main(String[] args) {
 
 		ServerSocket serverSocket = null;
+
 		try {
 			// 1. Create Server Socket
 			serverSocket = new ServerSocket();
-
+			   
 			// 2. Bind
-			serverSocket.bind(new InetSocketAddress("0.0.0.0", PORT));
-			consolLog("httpd starts at " + PORT);
-			
-			
-			
-			while (true) {
-				// 3. Wait for connecting ( accept )
+			serverSocket.bind( new InetSocketAddress( "0.0.0.0", PORT ) );
+			consoleLog("httpd starts at " + PORT);
+
+			while(true) {
+				// 3. Wait for connecting (accept)
 				Socket socket = serverSocket.accept();
 
-				// 4. Delegate Processing Request : 스레드 객체한테 기능을 위임한다.
+				// 4. Delegate Processing Request
 				new RequestHandler(socket).start();
 			}
 
 		} catch (IOException ex) {
-			consolLog("error:" + ex);
+			consoleLog("error:" + ex);
 		} finally {
 			// 5. 자원정리
 			try {
@@ -39,12 +37,12 @@ public class SimpleHttpServer {
 					serverSocket.close();
 				}
 			} catch (IOException ex) {
-				consolLog("error:" + ex);
+				consoleLog("error:" + ex);
 			}
 		}
 	}
 
-	public static void consolLog(String message) {
-		System.out.println("[HttpServer#" + Thread.currentThread().getId() + "] " + message);
+	public static void consoleLog(String message) {
+		System.out.println("[HttpServer#" + Thread.currentThread().getId()  + "] " + message);
 	}
 }

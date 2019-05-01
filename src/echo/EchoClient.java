@@ -26,17 +26,15 @@ public class EchoClient {
 			// 2. 소켓 생성
 			socket = new Socket();
 			
-			
 			// 3. 서버연결
 			socket.connect(new InetSocketAddress(SERVER_IP, SERVER_PORT));
 			log("connected");
-			
 			
 			// 4. IOStream todtjd(받아오기)
 			BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "utf-8"));
 			// true를 넣어줌으로써 Auto flush 해줌
 			PrintWriter pr = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "utf-8"), true);
-
+			
 			while (true) {
 				// 5. 키보드 입력받기
 				System.out.print(">> ");
@@ -44,12 +42,11 @@ public class EchoClient {
 				if ("quit".contentEquals(line)) {
 					break;
 				}
-
-				// 6. 데이터 쓰기
 				
+				// 6. 데이터 쓰기
 				pr.println(line);
 				System.out.println(new Date().toString());
-
+				
 				// 7. 데이터 읽기
 				String data = br.readLine();
 				if (data == null) {

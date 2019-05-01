@@ -12,7 +12,13 @@ import java.nio.file.Files;
 
 public class RequestHandler extends Thread {
 
-	private static final String DOCUMENT_ROOT = "./webapp"; // document_root("/"랑 매핑됨)는 사이트의 최상위 경로이다.
+	private static String documentRoot = "";
+	
+	static { 
+			documentRoot = RequestHandler.class.getClass().getResource("/webapp").getPath();
+//			InputStream is = RequestHandler.class.getResourceAsStream("/webapp/index.html");
+	}
+	
 	private Socket socket;
 	public RequestHandler(Socket socket) {
 		this.socket = socket;
@@ -97,8 +103,6 @@ public class RequestHandler extends Thread {
 		}
 	}
 
-
-
 	public void consoleLog(String message) {
 		System.out.println("[RequestHandler#" + getId() + "] " + message);
 	}
@@ -108,7 +112,7 @@ public class RequestHandler extends Thread {
 			url = "/index.html"; // 상용적인 WAS는 이 내용을 설정파일에 설정 후 읽어와서 처리함
 		}
 		// 예측하지 못한 경우에만 예외처리를 해주는 것이좋다. 최대한 안쓰면서 조건문 등의 코드로 처리하는게 좋음
-		File file = new File(DOCUMENT_ROOT + url);
+		File file = new File(documentRoot + url);
 		if (file.exists() == false) {
 			response404Error(os, protocol);
 			/*
@@ -129,8 +133,8 @@ public class RequestHandler extends Thread {
 	}
 
 	private void response404Error(OutputStream os, String protocol) throws IOException {
-		File file = new File(DOCUMENT_ROOT+"/error/404.html");
-		
+		File file = new File(documentRoot+"/error/404.html");
+
 		byte[] body = null;
 		String contentType = null;
 		if(file.exists()) {
@@ -141,10 +145,10 @@ public class RequestHandler extends Thread {
 		String message = "404 File Not Found";
 		outputStreamWrite(os, protocol, message, contentType, body );
 	}
-	
+
 	private void response400Error(OutputStream os, String protocol) throws IOException {
 
-		File file = new File(DOCUMENT_ROOT+"/error/400.html");
+		File file = new File(documentRoot+"/error/400.html");
 		byte[] body = null;
 		String contentType = null;
 		if(file.exists()) {
