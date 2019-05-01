@@ -130,8 +130,13 @@ public class RequestHandler extends Thread {
 
 	private void response404Error(OutputStream os, String protocol) throws IOException {
 		File file = new File(DOCUMENT_ROOT+"/error/404.html");
-		byte[] body = Files.readAllBytes(file.toPath());
-		String contentType = Files.probeContentType(file.toPath());
+		
+		byte[] body = null;
+		String contentType = null;
+		if(file.exists()) {
+			body = Files.readAllBytes(file.toPath());
+			contentType = Files.probeContentType(file.toPath());
+		}
 		// 응답
 		String message = "404 File Not Found";
 		outputStreamWrite(os, protocol, message, contentType, body );
@@ -140,8 +145,12 @@ public class RequestHandler extends Thread {
 	private void response400Error(OutputStream os, String protocol) throws IOException {
 
 		File file = new File(DOCUMENT_ROOT+"/error/400.html");
-		byte[] body = Files.readAllBytes(file.toPath());
-		String contentType = Files.probeContentType(file.toPath());
+		byte[] body = null;
+		String contentType = null;
+		if(file.exists()) {
+			body = Files.readAllBytes(file.toPath());
+			contentType = Files.probeContentType(file.toPath());
+		}
 		// 응답
 		String message = "400 Bad Request";
 
